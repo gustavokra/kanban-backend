@@ -1,19 +1,19 @@
-package com.kraemer.tarefas;
+package com.kraemer.tarefas.Entities;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Entity(name = "tarefa")
-public class Tarefa {
-
+@Table(name = "quadro")
+public class Quadro {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", length = 25, nullable = false)
     private String nome;
 
     public Long getId() {
@@ -33,3 +33,4 @@ public class Tarefa {
     }
 
 }
+
