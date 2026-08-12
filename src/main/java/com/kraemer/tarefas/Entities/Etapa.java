@@ -18,11 +18,11 @@ public class Etapa {
     private Long id;
 
     @Column(name = "nome", length = 25, nullable = false)
-    private String name;
+    private String nome;
 
     @ManyToOne
     @JoinColumn(name = "quadro_id", nullable = false)
-    @JsonIgnore
+    // @JsonIgnore
     private Quadro quadro;
 
     // @OneToMany(mappedBy = "etapa")
@@ -36,12 +36,12 @@ public class Etapa {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Quadro getQuadro() {

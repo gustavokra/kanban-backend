@@ -13,7 +13,7 @@ public class Quadro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", length = 25, nullable = false)
+    @Column(name = "nome", length = 25, nullable = false, unique = true)
     private String nome;
 
     // @OneToMany(mappedBy = "quadro")

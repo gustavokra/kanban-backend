@@ -59,6 +59,7 @@ public class TarefaController {
 
         var tarefaAtual = existe.get();
         tarefaAtual.setNome(tarefa.getNome());
+        tarefaAtual.setEtapa(tarefa.getEtapa());
 
         return ResponseEntity.ok(repo.save(tarefaAtual));
     }
