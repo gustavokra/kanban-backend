@@ -1,10 +1,10 @@
-package com.kraemer.tarefas;
+package com.kraemer.kanban;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TarefasApplicationTests {
+class kanbanApplicationTests {
 
 	@Test
 	void contextLoads() {

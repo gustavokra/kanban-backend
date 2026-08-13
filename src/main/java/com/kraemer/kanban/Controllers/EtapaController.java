@@ -1,4 +1,4 @@
-package com.kraemer.tarefas.Controllers;
+package com.kraemer.kanban.Controllers;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kraemer.tarefas.Entities.Etapa;
-import com.kraemer.tarefas.Service.EtapaService;
+import com.kraemer.kanban.Entities.Etapa;
+import com.kraemer.kanban.Service.EtapaService;
 
 @RestController
 @RequestMapping("api/v1/etapa")

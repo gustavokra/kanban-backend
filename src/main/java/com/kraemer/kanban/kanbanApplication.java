@@ -1,13 +1,13 @@
-package com.kraemer.tarefas;
+package com.kraemer.kanban;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TarefasApplication {
+public class kanbanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TarefasApplication.class, args);
+		SpringApplication.run(kanbanApplication.class, args);
 	}
 
 }

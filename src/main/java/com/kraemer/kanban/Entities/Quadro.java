@@ -1,4 +1,4 @@
-package com.kraemer.tarefas.Entities;
+package com.kraemer.kanban.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

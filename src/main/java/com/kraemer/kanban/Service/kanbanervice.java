@@ -1,4 +1,4 @@
-package com.kraemer.tarefas.Service;
+package com.kraemer.kanban.Service;
 
 import java.util.List;
 
@@ -6,15 +6,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.kraemer.tarefas.Entities.Tarefa;
-import com.kraemer.tarefas.Repository.TarefaRepository;
+import com.kraemer.kanban.Entities.Tarefa;
+import com.kraemer.kanban.Repository.TarefaRepository;
 
 @Service
-public class TarefaService {
+public class kanbanervice {
 
     private final TarefaRepository repo;
 
-    public TarefaService(TarefaRepository repo) {
+    public kanbanervice(TarefaRepository repo) {
         this.repo = repo;
     }
 

@@ -1,4 +1,4 @@
-package com.kraemer.tarefas.Controllers;
+package com.kraemer.kanban.Controllers;
 
 import java.util.List;
 
@@ -14,46 +14,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kraemer.tarefas.Entities.Tarefa;
-import com.kraemer.tarefas.Repository.TarefaRepository;
-import com.kraemer.tarefas.Service.TarefaService;
+import com.kraemer.kanban.Entities.Quadro;
+import com.kraemer.kanban.Service.QuadroService;
 
 @RestController
-@RequestMapping(value = "/api/v1/tarefa", produces = MediaType.APPLICATION_JSON_VALUE)
-public class TarefaController {
+@RequestMapping(value = "/api/v1/quadro", produces = MediaType.APPLICATION_JSON_VALUE)
+public class QuadroController {
 
-    private final TarefaService service;
+    private QuadroService service;
 
-    public TarefaController(TarefaService service) {
+    public QuadroController(QuadroService service) {
         this.service = service;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Tarefa> criar(@RequestBody Tarefa tarefa) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(tarefa));
+    public ResponseEntity<Quadro> criar(@RequestBody Quadro quadro) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(quadro));
     }
 
     @GetMapping
-    public ResponseEntity<List<Tarefa>> obterTodos() {
+    public ResponseEntity<List<Quadro>> obterTodos() {
         return ResponseEntity.ok(service.obterTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tarefa> obterPorId(@PathVariable Long id) {
+    public ResponseEntity<Quadro> obterPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.obterPorId(id));
     }
 
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Tarefa> atualizar(
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Quadro> atualizar(
             @PathVariable Long id,
-            @RequestBody Tarefa tarefa) {
-        return ResponseEntity.ok(service.atualizar(id, tarefa));
+            @RequestBody Quadro quadro) {
+        return ResponseEntity.ok(service.atualizar(id, quadro));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Quadro> deletar(@PathVariable Long id) {
         service.deletar(id);
-
         return ResponseEntity.noContent().build();
     }
 }

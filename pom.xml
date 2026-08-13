@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kraemer</groupId>
-	<artifactId>tarefas</artifactId>
+	<artifactId>kanban</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name />
 	<description />

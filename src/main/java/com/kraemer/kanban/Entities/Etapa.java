@@ -1,4 +1,4 @@
-package com.kraemer.tarefas.Entities;
+package com.kraemer.kanban.Entities;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class Etapa {
     private Quadro quadro;
 
     @OneToMany(mappedBy = "etapa", cascade = CascadeType.REMOVE)
-    private List<Tarefa> tarefas;
+    private List<Tarefa> kanban;
 
     public Long getId() {
         return id;

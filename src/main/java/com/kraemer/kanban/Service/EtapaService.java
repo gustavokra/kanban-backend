@@ -1,4 +1,4 @@
-package com.kraemer.tarefas.Service;
+package com.kraemer.kanban.Service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.kraemer.tarefas.Entities.Etapa;
-import com.kraemer.tarefas.Repository.EtapaRepository;
+import com.kraemer.kanban.Entities.Etapa;
+import com.kraemer.kanban.Repository.EtapaRepository;
 
 @Service
 public class EtapaService {
