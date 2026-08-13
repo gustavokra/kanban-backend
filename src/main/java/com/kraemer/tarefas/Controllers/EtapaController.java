@@ -14,64 +14,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kraemer.tarefas.Entities.Etapa;
-import com.kraemer.tarefas.Repository.EtapaRepository;
+import com.kraemer.tarefas.Service.EtapaService;
 
 @RestController
 @RequestMapping("api/v1/etapa")
 public class EtapaController {
 
-    private EtapaRepository repo;
+    private EtapaService service;
 
-    public EtapaController(EtapaRepository repo) {
-        this.repo = repo;
+    public EtapaController(EtapaService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<Etapa> criar(@RequestBody Etapa etapa) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                repo.save(etapa));
+                service.criar(etapa));
     }
 
     @GetMapping()
     public ResponseEntity<List<Etapa>> obterTodos() {
-        return ResponseEntity.ok(repo.findAll());
+        return ResponseEntity.ok(service.obterTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Etapa> obterPorId(@PathVariable Long id) {
-        return repo.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(service.obterPorId(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Etapa> atualizar(
             @PathVariable Long id,
             @RequestBody Etapa etapa) {
-
-        var etapaAtualizar = repo.findById(id);
-
-        if (etapaAtualizar.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        var etapaAtualizada = etapaAtualizar.get();
-
-        etapaAtualizada.setNome(etapa.getNome());
-
-        return ResponseEntity.ok(repo.save(etapaAtualizada));
+        return ResponseEntity.ok(service.atualizar(id, etapa));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Etapa> excluir(@PathVariable Long id) {
-        var etapaExcluir = repo.findById(id);
-
-        if(etapaExcluir.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        repo.delete(etapaExcluir.get());
-
+        service.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
