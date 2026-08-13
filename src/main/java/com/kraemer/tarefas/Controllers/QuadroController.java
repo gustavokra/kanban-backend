@@ -15,60 +15,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kraemer.tarefas.Entities.Quadro;
-import com.kraemer.tarefas.Repository.QuadroRepository;
+import com.kraemer.tarefas.Service.QuadroService;
 
 @RestController
 @RequestMapping(value = "/api/v1/quadro", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QuadroController {
 
-    private QuadroRepository repo;
+    private QuadroService service;
 
-    public QuadroController(QuadroRepository repo) {
-        this.repo = repo;
+    public QuadroController(QuadroService service) {
+        this.service = service;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Quadro> criar(@RequestBody Quadro quadro) {
-        var salvado = repo.save(quadro);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salvado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(quadro));
     }
 
     @GetMapping
     public ResponseEntity<List<Quadro>> obterTodos() {
-        return ResponseEntity.ok(repo.findAll());
+        return ResponseEntity.ok(service.obterTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Quadro> obterPorId(@PathVariable Long id) {
-        return repo.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(service.obterPorId(id));
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Quadro> atualizar(
             @PathVariable Long id,
             @RequestBody Quadro quadro) {
-        var quadroAtualizar = repo.findById(id);
-
-        if (quadroAtualizar.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        var quadroAtual = quadroAtualizar.get();
-        quadroAtual.setNome(quadro.getNome());
-
-        return ResponseEntity.ok(repo.save(quadroAtual));
+        return ResponseEntity.ok(service.atualizar(id, quadro));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Quadro> deletar(@PathVariable Long id) {
-        var quadroRemover = repo.findById(id);
-        if (quadroRemover.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        repo.delete(quadroRemover.get());
+        service.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -22,7 +22,6 @@ public class Etapa {
 
     @ManyToOne
     @JoinColumn(name = "quadro_id", nullable = false)
-    // @JsonIgnore
     private Quadro quadro;
 
     // @OneToMany(mappedBy = "etapa")
