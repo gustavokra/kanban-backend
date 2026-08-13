@@ -16,61 +16,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kraemer.tarefas.Entities.Tarefa;
 import com.kraemer.tarefas.Repository.TarefaRepository;
+import com.kraemer.tarefas.Service.TarefaService;
 
 @RestController
 @RequestMapping(value = "/api/v1/tarefa", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TarefaController {
 
-    private final TarefaRepository repo;
+    private final TarefaService service;
 
-    public TarefaController(TarefaRepository repo) {
-        this.repo = repo;
+    public TarefaController(TarefaService service) {
+        this.service = service;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Tarefa> criar(@RequestBody Tarefa tarefa) {
-
-        var salvado = repo.save(tarefa);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(salvado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(tarefa));
     }
 
     @GetMapping
     public ResponseEntity<List<Tarefa>> obterTodos() {
-        return ResponseEntity.ok(repo.findAll());
+        return ResponseEntity.ok(service.obterTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Tarefa> obterPorId(@PathVariable Long id) {
-        return repo.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(service.obterPorId(id));
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Tarefa> atualizar(
             @PathVariable Long id,
             @RequestBody Tarefa tarefa) {
-        var existe = repo.findById(id);
-
-        if (existe.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        var tarefaAtual = existe.get();
-        tarefaAtual.setNome(tarefa.getNome());
-        tarefaAtual.setEtapa(tarefa.getEtapa());
-
-        return ResponseEntity.ok(repo.save(tarefaAtual));
+        return ResponseEntity.ok(service.atualizar(id, tarefa));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (!repo.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        repo.deleteById(id);
+        service.deletar(id);
 
         return ResponseEntity.noContent().build();
     }
