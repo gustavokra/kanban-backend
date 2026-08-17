@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kraemer.kanban.Entities.Etapa;
-import com.kraemer.kanban.Service.EtapaService;
+import com.kraemer.kanban.Services.EtapaService;
 
 @RestController
 @RequestMapping("api/v1/etapa")

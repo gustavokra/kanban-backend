@@ -1,10 +1,14 @@
 package com.kraemer.kanban.Entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "quadro")
 public class Quadro {
@@ -16,8 +20,8 @@ public class Quadro {
     @Column(name = "nome", length = 25, nullable = false, unique = true)
     private String nome;
 
-    // @OneToMany(mappedBy = "quadro")
-    // private List<Etapa> etapas;
+    @OneToMany(mappedBy = "quadro", cascade = CascadeType.REMOVE)
+    private List<Etapa> etapas;
 
     public Long getId() {
         return id;

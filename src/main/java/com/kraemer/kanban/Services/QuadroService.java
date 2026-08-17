@@ -1,4 +1,4 @@
-package com.kraemer.kanban.Service;
+package com.kraemer.kanban.Services;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kraemer.kanban.Entities.Quadro;
-import com.kraemer.kanban.Repository.QuadroRepository;
+import com.kraemer.kanban.Repositories.QuadroRepository;
 
 @Service
 public class QuadroService {

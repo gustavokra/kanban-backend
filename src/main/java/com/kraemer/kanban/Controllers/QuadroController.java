@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kraemer.kanban.Entities.Quadro;
-import com.kraemer.kanban.Service.QuadroService;
+import com.kraemer.kanban.Services.QuadroService;
 
 @RestController
 @RequestMapping(value = "/api/v1/quadro", produces = MediaType.APPLICATION_JSON_VALUE)
