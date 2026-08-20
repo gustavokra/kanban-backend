@@ -43,7 +43,7 @@ public class TarefaServiceTest {
     }
 
     @Test
-    void deveRetornarTarefas() {
+    void deveRetornarTodasTarefas() {
         List<Tarefa> tarefas = List.of(new Tarefa(), new Tarefa());
 
         when(repo.findAll()).thenReturn(tarefas);
