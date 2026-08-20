@@ -1,13 +1,16 @@
 package com.kraemer.kanban;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.kraemer.kanban.Entities.Tarefa;
 import com.kraemer.kanban.Repositories.TarefaRepository;
@@ -37,5 +40,18 @@ public class TarefaServiceTest {
 
         assertEquals(tarefaSalva, resultado);
         verify(repo).save(tarefa);
+    }
+
+    @Test
+    void deveRetornarTarefas() {
+        List<Tarefa> tarefas = List.of(new Tarefa(), new Tarefa());
+
+        when(repo.findAll()).thenReturn(tarefas);
+
+        List<Tarefa> resultado = service.obterTodos();
+
+        assertEquals(tarefas, resultado);
+
+        verify(repo).findAll();
     }
 }
