@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kraemer.kanban.Entities.Tarefa;
-import com.kraemer.kanban.Services.kanbanervice;
+import com.kraemer.kanban.Services.TarefaService;
 
 @RestController
 @RequestMapping(value = "/api/v1/tarefa", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TarefaController {
 
-    private final kanbanervice service;
+    private final TarefaService service;
 
-    public TarefaController(kanbanervice service) {
+    public TarefaController(TarefaService service) {
         this.service = service;
     }
 

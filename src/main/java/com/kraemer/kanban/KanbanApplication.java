@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class kanbanApplication {
+public class KanbanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(kanbanApplication.class, args);
+		SpringApplication.run(KanbanApplication.class, args);
 	}
 
 }

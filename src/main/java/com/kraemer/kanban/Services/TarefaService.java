@@ -10,11 +10,11 @@ import com.kraemer.kanban.Entities.Tarefa;
 import com.kraemer.kanban.Repositories.TarefaRepository;
 
 @Service
-public class kanbanervice {
+public class TarefaService {
 
     private final TarefaRepository repo;
 
-    public kanbanervice(TarefaRepository repo) {
+    public TarefaService(TarefaRepository repo) {
         this.repo = repo;
     }
 
