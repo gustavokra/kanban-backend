@@ -2,6 +2,8 @@ package com.kraemer.kanban;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.kraemer.kanban.Entities.Etapa;
 import com.kraemer.kanban.Entities.Tarefa;
 import com.kraemer.kanban.Repositories.TarefaRepository;
 import com.kraemer.kanban.Services.TarefaService;
@@ -89,6 +92,46 @@ public class TarefaServiceTest {
         assertEquals("Tarefa não encontrado", excecao.getReason());
 
         verify(repo).findById(id);
+    }
+
+    @Test
+    void deveAtualizarTarefa() {
+        Long id = 1L;
+
+        Tarefa tarefaAtual = new Tarefa();
+        tarefaAtual.setId(id);
+        tarefaAtual.setNome("Tarefa antiga");
+
+        Tarefa tarefaNova = new Tarefa();
+        tarefaNova.setNome("Tarefa atualizada");
+
+        Etapa etapa = new Etapa();
+        tarefaNova.setEtapa(etapa);
+
+        when(repo.findById(id)).thenReturn(Optional.of(tarefaAtual));
+        when(repo.save(tarefaAtual)).thenReturn(tarefaAtual);
+
+        Tarefa resultado = service.atualizar(id, tarefaNova);
+
+        assertEquals("Tarefa atualizada", resultado.getNome());
+        assertEquals(etapa, resultado.getEtapa());
+
+        verify(repo).findById(id);
+        verify(repo).save(tarefaAtual);
+    }
+
+    @Test
+    void deveLancar404QuandoTarefaNaoExiste() {
+        Long id = 999L;
+
+        when(repo.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(
+                ResponseStatusException.class,
+                () -> service.atualizar(id, new Tarefa()));
+
+        verify(repo).findById(id);
+        verify(repo, never()).save(any());
     }
 
 }
