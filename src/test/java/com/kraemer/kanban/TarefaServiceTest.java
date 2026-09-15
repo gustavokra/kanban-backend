@@ -134,4 +134,34 @@ public class TarefaServiceTest {
         verify(repo, never()).save(any());
     }
 
+    @Test
+    void deveDeletarTarefaQuandoExistir() {
+        Long id = 1L;
+        Tarefa tarefa = new Tarefa();
+        tarefa.setId(id);
+
+        when(repo.findById(id)).thenReturn(Optional.of(tarefa));
+
+        service.deletar(id);
+
+        verify(repo).findById(id);
+        verify(repo).delete(tarefa);
+    }
+
+    @Test
+    void deveRetornarNotFoundQuandoTarefaNaoExistir() {
+        Long id = 1L;
+
+        when(repo.findById(id)).thenReturn(Optional.empty());
+
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> service.deletar(id));
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+
+        verify(repo).findById(id);
+        verify(repo, never()).delete(any());
+    }
+
 }
