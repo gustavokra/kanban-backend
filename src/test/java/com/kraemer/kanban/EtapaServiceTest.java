@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,6 +40,19 @@ public class EtapaServiceTest {
 
         assertEquals(etapaSalva, resultado);
         verify(repo).save(etapa);
+    }
+
+    @Test 
+    void deveRetornarTodasEtapas() {
+        List<Etapa> etapas = List.of(new Etapa(), new Etapa());
+        
+        when(repo.findAll()).thenReturn(etapas);
+
+        List<Etapa> resultado = service.obterTodos();
+
+        assertEquals(etapas, resultado);
+
+        verify(repo).findAll();
     }
     
 }
