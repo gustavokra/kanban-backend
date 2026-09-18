@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,6 +54,22 @@ public class EtapaServiceTest {
         assertEquals(etapas, resultado);
 
         verify(repo).findAll();
+    }
+
+    @Test
+    void deveObterEtapaPorId() {
+        Long id = 1L;
+
+        Etapa etapa = new Etapa();
+        etapa.setId(id);
+        etapa.setNome("nome");
+
+        when(repo.findById(id)).thenReturn(Optional.of(etapa));
+
+        Etapa resultado = service.obterPorId(id);
+
+        assertEquals(etapa, resultado);
+        verify(repo).findById(id);
     }
     
 }
