@@ -113,7 +113,7 @@ public class EtapaServiceTest {
 
         assertEquals("Etapa atualizada", resultado.getNome());
         assertEquals(quadro, resultado.getQuadro());
-
+        
         verify(repo).findById(id);
         verify(repo).save(etapaAtual);
     }
