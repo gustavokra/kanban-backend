@@ -36,6 +36,7 @@ public class EtapaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Etapa não encontrado"));
 
         etapaAtual.setNome(etapa.getNome());
+        etapaAtual.setQuadro(etapa.getQuadro());
         return repo.save(etapaAtual);
     }
 

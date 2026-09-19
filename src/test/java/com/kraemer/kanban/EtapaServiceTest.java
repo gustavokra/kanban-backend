@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kraemer.kanban.Entities.Etapa;
+import com.kraemer.kanban.Entities.Quadro;
 import com.kraemer.kanban.Repositories.EtapaRepository;
 import com.kraemer.kanban.Services.EtapaService;
 
@@ -90,5 +91,32 @@ public class EtapaServiceTest {
 
         verify(repo).findById(id);
     }
+
+    @Test
+    void deveAtualizarEtapa() {
+        Long id = 1L;
+
+        Etapa etapaAtual = new Etapa();
+        etapaAtual.setId(id);
+        etapaAtual.setNome("Etapa antiga");
+
+        Etapa etapaNova = new Etapa();
+        etapaNova.setNome("Etapa atualizada");
+
+        Quadro quadro = new Quadro();
+        etapaNova.setQuadro(quadro);
+
+        when(repo.findById(id)).thenReturn(Optional.of(etapaAtual));
+        when(repo.save(etapaAtual)).thenReturn(etapaAtual);
+
+        Etapa resultado = service.atualizar(id, etapaNova);
+
+        assertEquals("Etapa atualizada", resultado.getNome());
+        assertEquals(quadro, resultado.getQuadro());
+
+        verify(repo).findById(id);
+        verify(repo).save(etapaAtual);
+    }
+
 
 }
