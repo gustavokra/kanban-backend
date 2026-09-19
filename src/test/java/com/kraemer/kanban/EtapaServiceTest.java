@@ -1,6 +1,7 @@
 package com.kraemer.kanban;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.kraemer.kanban.Entities.Etapa;
 import com.kraemer.kanban.Repositories.EtapaRepository;
@@ -19,11 +22,11 @@ import com.kraemer.kanban.Services.EtapaService;
 
 @ExtendWith(MockitoExtension.class)
 public class EtapaServiceTest {
-    
-    @Mock 
+
+    @Mock
     private EtapaRepository repo;
 
-    @InjectMocks 
+    @InjectMocks
     private EtapaService service;
 
     @Test
@@ -43,10 +46,10 @@ public class EtapaServiceTest {
         verify(repo).save(etapa);
     }
 
-    @Test 
+    @Test
     void deveRetornarTodasEtapas() {
         List<Etapa> etapas = List.of(new Etapa(), new Etapa());
-        
+
         when(repo.findAll()).thenReturn(etapas);
 
         List<Etapa> resultado = service.obterTodos();
@@ -71,5 +74,21 @@ public class EtapaServiceTest {
         assertEquals(etapa, resultado);
         verify(repo).findById(id);
     }
-    
+
+    @Test
+    void deveLancarExcecaoQuandoEtapaNaoEncontrada() {
+        Long id = 1L;
+
+        when(repo.findById(id)).thenReturn(Optional.empty());
+
+        ResponseStatusException excecao = assertThrows(
+                ResponseStatusException.class,
+                () -> service.obterPorId(id));
+
+        assertEquals(HttpStatus.NOT_FOUND, excecao.getStatusCode());
+        assertEquals("Etapa não encontrado", excecao.getReason());
+
+        verify(repo).findById(id);
+    }
+
 }
