@@ -2,6 +2,8 @@ package com.kraemer.kanban;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.kraemer.kanban.Entities.Etapa;
 import com.kraemer.kanban.Entities.Quadro;
+import com.kraemer.kanban.Entities.Tarefa;
 import com.kraemer.kanban.Repositories.EtapaRepository;
 import com.kraemer.kanban.Services.EtapaService;
 
@@ -113,10 +116,23 @@ public class EtapaServiceTest {
 
         assertEquals("Etapa atualizada", resultado.getNome());
         assertEquals(quadro, resultado.getQuadro());
-        
+
         verify(repo).findById(id);
         verify(repo).save(etapaAtual);
     }
 
+    @Test
+    void deveLancar404QuandoEtapaNaoExiste() {
+        Long id = 999L;
+
+        when(repo.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(
+                ResponseStatusException.class,
+                () -> service.atualizar(id, new Etapa()));
+
+        verify(repo).findById(id);
+        verify(repo, never()).save(any());
+    }
 
 }
