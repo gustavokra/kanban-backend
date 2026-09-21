@@ -135,4 +135,17 @@ public class EtapaServiceTest {
         verify(repo, never()).save(any());
     }
 
+    @Test
+    void deveDeletarEtapaQuandoExistir() {
+        Long id = 1L;
+        Etapa etapa = new Etapa();
+        etapa.setId(id);
+
+        when(repo.findById(id)).thenReturn(Optional.of(etapa));
+
+        service.deletar(id);
+
+        verify(repo).findById(id);
+        verify(repo).delete(etapa);
+    }
 }
