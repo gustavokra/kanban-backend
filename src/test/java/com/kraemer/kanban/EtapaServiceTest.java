@@ -20,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.kraemer.kanban.Entities.Etapa;
 import com.kraemer.kanban.Entities.Quadro;
-import com.kraemer.kanban.Entities.Tarefa;
 import com.kraemer.kanban.Repositories.EtapaRepository;
 import com.kraemer.kanban.Services.EtapaService;
 
