@@ -147,4 +147,20 @@ public class EtapaServiceTest {
         verify(repo).findById(id);
         verify(repo).delete(etapa);
     }
+
+        @Test
+    void deveRetornarNotFoundQuandoEtapaNaoExistir() {
+        Long id = 1L;
+
+        when(repo.findById(id)).thenReturn(Optional.empty());
+
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> service.deletar(id));
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+
+        verify(repo).findById(id);
+        verify(repo, never()).delete(any());
+    }
 }
