@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kraemer.kanban.Entities.Quadro;
-import com.kraemer.kanban.Entities.Quadro;
 import com.kraemer.kanban.Repositories.QuadroRepository;
 import com.kraemer.kanban.Services.QuadroService;
 
