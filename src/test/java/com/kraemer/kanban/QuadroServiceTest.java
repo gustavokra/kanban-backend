@@ -158,5 +158,6 @@ public class QuadroServiceTest {
 
         verify(repo).findById(id);
         verify(repo, never()).delete(any());
+        
     }
 }
