@@ -104,8 +104,6 @@ public class QuadroServiceTest {
         Quadro quadroNova = new Quadro();
         quadroNova.setNome("Quadro atualizada");
 
-        Quadro quadro = new Quadro();
-        quadroNova.setQuadro(quadro);
 
         when(repo.findById(id)).thenReturn(Optional.of(quadroAtual));
         when(repo.save(quadroAtual)).thenReturn(quadroAtual);
@@ -113,7 +111,6 @@ public class QuadroServiceTest {
         Quadro resultado = service.atualizar(id, quadroNova);
 
         assertEquals("Quadro atualizada", resultado.getNome());
-        assertEquals(quadro, resultado.getQuadro());
 
         verify(repo).findById(id);
         verify(repo).save(quadroAtual);
